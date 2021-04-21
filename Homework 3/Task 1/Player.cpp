@@ -2,31 +2,31 @@
 #include <iostream>
 #include <cstring>
 
-template<typename M, typename N>
+/*template<typename M, typename N>
 void Player<M, N>::copy(char* other_Name, size_t other_Wins, size_t other_Loses)
 {
 	nameOfPlayer = new char[strlen(other_Name) + 1];
 	strcpy_s(nameOfPlayer, strlen(other_Name) + 1, other_Name);
 	wins = other_Wins;
 	loses = other_Loses;
-}
+}*/
 
-template<typename M, typename N>
+/*template<typename M, typename N>
 void Player<M, N> ::erase()
 {
 	delete[] nameOfPlayer;
-}
+}*/
 
-template<typename M, typename N>
+/*template<typename M, typename N>
 Player<M, N>::Player()
 {
 	nameOfPlayer = new char[6];
 	strcpy_s(nameOfPlayer, 6, "Empty");
 	wins = 0;
 	loses = 0;
-}
+}*/
 
-template<typename M, typename N>
+/*template<typename M, typename N>
 Player<M, N>::Player(char* other_Name, size_t other_Wins, size_t other_Loses)
 {
 	this->copy(other_Name, other_Wins, other_Loses);
@@ -182,4 +182,4 @@ template<typename M, typename N>
 void Player<M, N>::loser()
 {
 	loses++;
-}
+}*/

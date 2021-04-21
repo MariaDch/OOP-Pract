@@ -20,7 +20,7 @@ public:
 	void setPower(size_t _power);
 	void setBonusPower(size_t _bonusPower);
 
-	const char* getWaterCardName() const;
+	const char* getName() const;
 	size_t getPower() const;
 	size_t getBonusPowe() const;
 

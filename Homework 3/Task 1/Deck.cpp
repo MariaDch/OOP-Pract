@@ -1,9 +1,9 @@
-#include "Deck.h"
+/*#include "Deck.h"
 #include <iostream>
 #include <cstring>
-#include <stdlib.h>      //rand
+#include <stdlib.h>
 
-template <typename T>
+/*template <typename T>
 void Deck<T>::copy(const Deck& other_deck)
 {
 	Cards = new T[30];
@@ -95,4 +95,4 @@ Deck<T>& Deck<T>::operator+=(T card)
 {
 	addCard(card);
 	return Cards;
-}
+}*/

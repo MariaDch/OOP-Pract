@@ -70,7 +70,7 @@ void WaterCard::setBonusPower(size_t _bonusPower)
 	bonusPower = _bonusPower;
 }
 
-const char* WaterCard::getWaterCardName() const
+const char* WaterCard::getName() const
 {
 	return WaterCardName;
 }

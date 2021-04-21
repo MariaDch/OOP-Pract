@@ -20,7 +20,7 @@ public:
 	void setpower(size_t other_power);
 	void setBonusPower(size_t other_bonusPower);
 
-	const char* getFireCardName() const;
+	const char* getName() const;
 	size_t getPower() const;
 	size_t getBonusPower() const;
 

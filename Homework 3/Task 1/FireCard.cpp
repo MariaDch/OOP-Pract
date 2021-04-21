@@ -70,7 +70,7 @@ void FireCard::setBonusPower(size_t _bonusPower)
 	bonusPower = _bonusPower;
 }
 
-const char* FireCard::getFireCardName() const
+const char* FireCard::getName() const
 {
 	return FireCardName;
 }

@@ -105,11 +105,11 @@ int main()
 
     Player<FireCard, WaterCard> player1;
     std::ifstream FirstPlayer("Player1.txt"); 
-    player1.loadPlayer(FirstPlayer);
+    player1.loadPlayer(FirstPlayer, player1);
 
     Player<WindCard, EarthCard> player2;
     std::ifstream SecondPlayer("Player2.txt");
-    player2.loadPlayer(SecondPlayer);
+    player2.loadPlayer(SecondPlayer, player2);
 
     Deck<FireCard> fireDeck;
 
