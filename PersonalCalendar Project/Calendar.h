@@ -1,15 +1,21 @@
 #pragma once
-#include "String.h"
-#include "Vector.h"
-#include <ctime>
+#include "Meeting.h"
+#include "Date.h"
 
 class Calendar
 {
 private:
-	String date;
-	Vector<> meetings;
-
+	Meeting meetings;
+	Date date;
+	Date startTime;
+	Date endTime;
 public:
-	//void book(String name, String note, String date, starttime,endtime);
-	void unbook(String);
+	void setMeetings(Meeting& other_meeting);
+	Meeting getMeetings()const;
+
+	void book(Meeting meetings);
+	void unbook(Meeting meetings);
+	void agenda();
+	void change();
 };
+

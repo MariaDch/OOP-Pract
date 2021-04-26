@@ -22,6 +22,7 @@ public:
         void print() const;
 
 };
+
 template<typename V>
 Vector<V>::Vector()
 {
@@ -56,6 +57,7 @@ void Vector<V>::resize()
     delete[] vector;
     vector = biggerVector;
 }
+
 template<typename V>
 void Vector<V>::copy(const Vector& other)
 {
@@ -68,6 +70,7 @@ void Vector<V>::copy(const Vector& other)
         vector[i] = other.vector[i];
     }
 }
+
 template<typename V>
 void Vector<V>::pushBack(int newElement)
 {
@@ -109,4 +112,3 @@ void Vector<V>::print() const
         std::cout << vector[i] << std::endl;
     }
 }
-

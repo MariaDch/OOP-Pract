@@ -13,7 +13,7 @@ private :
 
 public:
 	String();
-	String& operator=(const String& other_string);
+	String& operator=(const char* other_array); //????????????
 	~String();
 
 	String(const String& other_string);
@@ -43,5 +43,7 @@ public:
 	bool operator== (const String& other_string);
 	bool operator!= (const String& other_string);
 	char operator[](size_t index);
+	//void operator>>();
+	//void operator<<();
 };
 

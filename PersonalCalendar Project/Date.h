@@ -6,9 +6,11 @@ class Date
 private:
 	String date;
 	String time;
+
 public:
 	Date();
 	Date(Date& other_date);
+	//Date& operator=();
 
 	void setTime(String other_time);
 	void setDate(String other_date);

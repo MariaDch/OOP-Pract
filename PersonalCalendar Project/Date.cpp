@@ -1,13 +1,12 @@
 #include "Date.h"
-#include<iostream>
 
 Date::Date()
 {
-	date.setArray('\0');
+	date.setArray("\0");
 	date.setSize(1);
 	date.setCapacity(2);
 
-	time.setArray('\0');
+	time.setArray("\0");
 	time.setSize(1);
 	time.setCapacity(2);
 }
@@ -40,30 +39,57 @@ String Date::getDate()const
 
 int Date::convertDateToInt()
 {
-	int intYear = 0;
-	int intMonth = 0;
-	int intDay = 0;
+	int intDate = 0;
+	for (int i = 0; i < date.getSize(); i++)
+	{
+		if (date[i] >= '0' && date[i] <= '9' || date[i] == '.')
+		{
+			if (date.getArray()[i] != '.')
+			{
+				if (i == 0)
+				{
+					intDate = date[i];
+				}
+				else
+				{
+					intDate *= 10;
+					intDate += date[i];
+				}
+			}
+		}
+		else
+			std::cout << "Invalid input.";
+	}
+	return intDate;
+}
+
+int Date::convertTimeToInt()
+{
+	int intTime = 0;
 
 	for (int i = 0; i < date.getSize(); i++)
 	{
-		if (date[i] >= '0' && date[i] <= '9' || date[i]=='.')
+		if (time.getArray()[i] >= '0' && time.getArray()[i] <= '9' || time.getArray()[i] == ':')
 		{
-			if (i <= 4)
+			if (time.getArray()[i] != '.')
 			{
-				for (int j = 0; date[j]!='.'; j++)
+				if (i == 0)
 				{
-					if (j == 0)
-					{
-						intYear = date[j];
-					}
-					else
-					{
-						intYear *= 10;
-						intYear += date[j];
-					}
+					intTime = time.getArray()[i];
+				}
+				else
+				{
+					intTime *= 10;
+					intTime += time.getArray()[i];
 				}
 			}
-			
 		}
 	}
+	return intTime;
 }
+
+/*void Date::print()
+{
+	std::cout << date;
+	std::cout << time;
+}*/

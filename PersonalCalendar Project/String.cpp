@@ -25,13 +25,11 @@ String::String()
 	array[0] = '\0';
 }
 
-String& String::operator=(const String& other_string)
+String& String::operator=(const char* other_array) //?????????????????
 {
-	if (this != &other_string)
-	{
 		erase();
-		copy(other_string);
-	}
+		array = new char[strlen(other_array) + 1];
+		strcpy_s(array,strlen(other_array)+1, other_array);
 	return *this;
 }
 
