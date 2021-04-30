@@ -3,7 +3,7 @@
 
 class String
 {
-private :
+private:
 	char* array;
 	size_t size;
 	size_t capacity;
@@ -13,7 +13,8 @@ private :
 
 public:
 	String();
-	String& operator=(const char* other_array); //????????????
+	//String& operator=(const String& other_string);
+	String& operator=(const char* _char);
 	~String();
 
 	String(const String& other_string);
@@ -25,11 +26,11 @@ public:
 	const char* getArray() const;
 	size_t getSize() const;
 	size_t getCapacity() const;
-	
+
 	void resize();
 
 	void print()const;
-	void add (char newSymbol);
+	void add(char newSymbol);
 	size_t getLength();
 	void insertAt(size_t index, char symbol);
 	void removeAt(size_t index);
@@ -40,10 +41,9 @@ public:
 
 	String operator+ (const String& other_string);
 	String& operator+= (const String& other_string);
+	String& operator+=(const char _elem);
 	bool operator== (const String& other_string);
 	bool operator!= (const String& other_string);
 	char operator[](size_t index);
-	//void operator>>();
-	//void operator<<();
 };
 
