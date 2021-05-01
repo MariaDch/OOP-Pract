@@ -32,6 +32,7 @@ public:
 	void change(Meeting meet, String option, String newValue);
 	void find(String findString);
 	void holiday(String _date);
+	void busyDays(String from, String to);
 	void findSlot(String date, int hours);
 	void findSlotWith(String _date, int hours, Vector<Calendar> calendars);
 	void merge(Vector<Calendar> calendars);

@@ -229,7 +229,13 @@ bool Meeting::validateTime(String time)
 	else return false;
 }
 
-/*void Meeting::print()const
+std::ostream& operator<<(std::ostream& out,const String& string)
+{
+	out << string.getArray();
+	return out;
+}
+
+void Meeting::print()const
 {
 	std::cout << name;
 	std::cout << std::endl;
@@ -239,5 +245,5 @@ bool Meeting::validateTime(String time)
 	std::cout << std::endl;
 	std::cout << endTime;
 
-}*/
+}
 

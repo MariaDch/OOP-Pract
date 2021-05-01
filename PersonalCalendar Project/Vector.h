@@ -26,7 +26,7 @@ public:
         Vector& operator[](int i);
         friend std::ostream& operator<<(std::ostream& out, Vector<V> vect);
 
-        void pushBack(int newElement);
+        void pushBack(V newElement);
         void popBack();
         void sort();
         void increseSize();
@@ -107,7 +107,7 @@ void Vector<V>::copy(const Vector& other)
 }
 
 template<typename V>
-void Vector<V>::pushBack(int newElement)
+void Vector<V>::pushBack(V newElement)
 {
     if (size >= capacity)
     {
@@ -124,15 +124,6 @@ void Vector<V>::popBack()
     if (size > 0)
     {
         size--;
-    }
-}
-
-template<typename V>
-void Vector<V>::sort()
-{
-    for (size_t i = 0; i < size; i++)
-    {
-
     }
 }
 

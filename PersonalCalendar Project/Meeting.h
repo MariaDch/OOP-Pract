@@ -27,6 +27,7 @@ public:
 
 	Meeting& operator=(Meeting& other_meeting);
 	bool operator==(Meeting& other_meeting);
+	friend std::ostream& operator<<(std::ostream& out,const String& string);
 
 	int dateDay();
 	int dateMonth();

@@ -63,7 +63,8 @@ String Calendar::getEndTime()const
 
 void Calendar::book(Meeting meeting)
 {
-	bool busy = false;
+	meetings.pushBack(meeting);
+	/*bool busy = false;
 	for (int i = 0; i < meetings.getSize(); i++)
 	{
 		if (meetings[i].getDate() == meeting.getDate() && meeting[i] == meeting.getStartTime() && meetings[i].getEndTime() == meeting.getEndTime())
@@ -76,11 +77,13 @@ void Calendar::book(Meeting meeting)
 	{
 		meetings.increseSize();
 		meetings[meetings.getSize()] = meeting;
-	}
+	}*/
 }
 
 void Calendar::unbook(Meeting meeting)
 {
+	meetings.popBack(); //promqna na funkciqta vuv vector!
+	/*
 	for (int i = 0; i < meetings.getSize(); i++)
 	{
 		if (meetings[i].getDate() == meeting.getDate() && meeting[i] == meeting.getStartTime() && meetings[i].getEndTime() == meeting.getEndTime())
@@ -93,10 +96,8 @@ void Calendar::unbook(Meeting meeting)
 			meetings[i].setNote(nullptr);
 			break;
 		}
-	}
+	}*/
 }
-
-
 
 void Calendar::agenda(String _date)
 {
@@ -108,5 +109,46 @@ void Calendar::agenda(String _date)
 		}
 	}
 }
+
+void Calendar::change(Meeting meet, String option, String newValue)
+{
+
+
+}
+
+void Calendar::find(String findString)
+{
+	for (int i = 0; i < meetings.getSize(); i++)
+	{
+		if (meetings[i].getName() == findString || meetings[i].getNote()==findString)
+		{
+				meetings[i].print();
+		}
+	}
+}
+
+void Calendar::holiday(String _date)
+{
+	/*
+	for (int i = 0; i < meetings.getSize(); i++)
+	{
+		if (meetings[i].getDate() == _date)
+		{
+			meetings[i].setStartTime(nullptr);
+			meetings[i].setEndTime(nullptr);
+			meetings[i].setNote("Holiday. You don't need to work today, yaaaaay.");
+		}
+	}
+	*/
+}
+
+void Calendar::busyDays(String from, String to)
+{
+}
+
+void Calendar::findSlot(String date, int hours)
+{
+}
+
 
 
