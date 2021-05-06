@@ -11,9 +11,9 @@ void Calendar::copy(Calendar& other_calendar)
 Calendar::Calendar()
 {
 	//meetings; ???????????????????????????????
-	date = nullptr;
-	startTime = nullptr;
-	endTime = nullptr;
+	date = "00.00.00";
+	startTime = "00:00";
+	endTime = "00:00";
 }
 
 Calendar::Calendar(Calendar& other_calendar)
@@ -63,92 +63,36 @@ String Calendar::getEndTime()const
 
 void Calendar::book(Meeting meeting)
 {
+	if(meetings.duplicateElements(meeting));               //TRQBVA  DA E VQNO
 	meetings.pushBack(meeting);
-	/*bool busy = false;
-	for (int i = 0; i < meetings.getSize(); i++)
-	{
-		if (meetings[i].getDate() == meeting.getDate() && meeting[i] == meeting.getStartTime() && meetings[i].getEndTime() == meeting.getEndTime())
-		{
-			busy = true;
-		}
-	}
-
-	if (busy == false)
-	{
-		meetings.increseSize();
-		meetings[meetings.getSize()] = meeting;
-	}*/
 }
 
-void Calendar::unbook(Meeting meeting)
+void Calendar::unbook(String _date, String start_time, String end_time)
 {
-	meetings.popBack(); //promqna na funkciqta vuv vector!
-	/*
-	for (int i = 0; i < meetings.getSize(); i++)
-	{
-		if (meetings[i].getDate() == meeting.getDate() && meeting[i] == meeting.getStartTime() && meetings[i].getEndTime() == meeting.getEndTime())
-		{
-			//meetings[i].~Vector(); ????????????????
-			meetings[i].setDate(nullptr);
-			meetings[i].setStartTime(nullptr);
-			meetings[i].setEndTime(nullptr);
-			meetings[i].setName(nullptr);
-			meetings[i].setNote(nullptr);
-			break;
-		}
-	}*/
+	meetings.removeElement(_date, start_time, end_time);		 //PROMQNA NA FUNKCIQTA VUV VEKCTOR.H   napraveno 
 }
 
 void Calendar::agenda(String _date)
 {
 	for (int i = 0; i < meetings.getSize(); i++)
 	{
+		meetings.sort();
+
 		if (meetings[i].getDate() == _date)
 		{
-			std::cout << meetings[i];
+			meetings[i].print();
 		}
 	}
 }
 
-void Calendar::change(Meeting meet, String option, String newValue)
-{
-
-
-}
 
 void Calendar::find(String findString)
 {
-	for (int i = 0; i < meetings.getSize(); i++)
+	for (size_t i = 0; i < meetings.getSize(); i++)
 	{
-		if (meetings[i].getName() == findString || meetings[i].getNote()==findString)
+		if (meetings[i].getName() == findString || meetings[i].getNote() == findString)
 		{
 				meetings[i].print();
 		}
 	}
 }
-
-void Calendar::holiday(String _date)
-{
-	/*
-	for (int i = 0; i < meetings.getSize(); i++)
-	{
-		if (meetings[i].getDate() == _date)
-		{
-			meetings[i].setStartTime(nullptr);
-			meetings[i].setEndTime(nullptr);
-			meetings[i].setNote("Holiday. You don't need to work today, yaaaaay.");
-		}
-	}
-	*/
-}
-
-void Calendar::busyDays(String from, String to)
-{
-}
-
-void Calendar::findSlot(String date, int hours)
-{
-}
-
-
-

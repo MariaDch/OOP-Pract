@@ -3,11 +3,11 @@
 
 Meeting::Meeting()
 {
-	date = nullptr;
-	name = nullptr;
-	note = nullptr;
-	startTime = nullptr;
-	endTime = nullptr;
+	date = "00.00.00";
+	name = "Empty";
+	note = "Empty";
+	startTime = "00:00";
+	endTime = "00:00";
 }
 
 Meeting::Meeting(const Meeting& other_meeting)
@@ -229,21 +229,15 @@ bool Meeting::validateTime(String time)
 	else return false;
 }
 
-std::ostream& operator<<(std::ostream& out,const String& string)
-{
-	out << string.getArray();
-	return out;
-}
 
 void Meeting::print()const
 {
-	std::cout << name;
+	std::cout << name.getArray();
 	std::cout << std::endl;
-	std::cout << note;
+	std::cout << note.getArray();
 	std::cout << std::endl;
-	std::cout << startTime;
+	std::cout << startTime.getArray();
 	std::cout << std::endl;
-	std::cout << endTime;
-
+	std::cout << endTime.getArray();
 }
 

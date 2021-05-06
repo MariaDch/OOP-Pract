@@ -1,6 +1,6 @@
 #pragma once
-#include "Date.h"
 #include "String.h"
+#include "Vector.h"
 
 class Meeting
 {
@@ -27,7 +27,6 @@ public:
 
 	Meeting& operator=(Meeting& other_meeting);
 	bool operator==(Meeting& other_meeting);
-	friend std::ostream& operator<<(std::ostream& out,const String& string);
 
 	int dateDay();
 	int dateMonth();
@@ -38,7 +37,18 @@ public:
 	int convertDateToInt();
 	bool validateDate();
 	bool validateTime(String time);
+	bool compareMeetings(Meeting meet);
 
 	void print()const;
+
+	/*friend std::ostream& operator<<(std::ostream& out,const Meeting& meet)
+	{
+		out << meet.getDate() << std::endl;
+		out << meet.startTime << std::endl;
+		out << meet.endTime << std::endl;
+		out << meet.name << std::endl;
+		return out;
+	}
+	*/
 };
 

@@ -23,19 +23,28 @@ public:
         size_t getCapacity();
 
         Vector& operator= (const Vector& other);
-        Vector& operator[](int i);
-        friend std::ostream& operator<<(std::ostream& out, Vector<V> vect);
+        V& operator[](int i);
+        friend std::ostream& operator<<(std::ostream& out, Vector<V> _vector)
+        {
+            for (size_t i = 0; i < _vector.size; i++)
+            {
+                out << _vector.vector[i] << " ";
+            }
+            return out;
+        }
 
         void pushBack(V newElement);
         void popBack();
+        void removeElement(String _date, String start_time, String end_time);
         void sort();
         void increseSize();
+        bool duplicateElements(V& other);
 
-        void print() const;
+      //  void print() const;
 };
 
 template<typename V>
-Vector<V>::Vector()
+Vector<V>::Vector()        //sushtoto
 {
     size = 0;
     capacity = 10;
@@ -43,30 +52,30 @@ Vector<V>::Vector()
 }
 
 template<typename V>
-Vector<V>::Vector(const Vector& other_vector)
+Vector<V>::Vector(const Vector& other_vector)        //sushtoto
 {
     copy(other_vector);
 }
 template<typename V>
-void Vector<V>::erase()
+void Vector<V>::erase()        //sushtoto
 {
     delete[] vector;
 }
 
 template<typename V>
-Vector<V>::~Vector()
+Vector<V>::~Vector()        //sushtoto
 {
     erase();
 }
 
 template<typename V>
-V* Vector<V>::getVecotor()
+V* Vector<V>::getVecotor()  
 {
     return vector;
 }
 
 template<typename V>
-size_t Vector<V>::getSize()
+size_t Vector<V>::getSize()             //sushtoto
 {
     return size;
 }
@@ -78,15 +87,15 @@ size_t Vector<V>::getCapacity()
 }
 
 template<typename V>
-void Vector<V>::resize()
+void Vector<V>::resize()         //sushtoto
 {
     capacity = size;
     capacity *= 2;
-    int* biggerVector = new int[capacity];
+    V* biggerVector = new V[capacity];
 
     for (size_t i = 0; i < size; i++)
     {
-        biggerVector[i] = this->vector[i];
+        biggerVector[i] = vector[i];
     }
 
     erase();
@@ -94,9 +103,9 @@ void Vector<V>::resize()
 }
 
 template<typename V>
-void Vector<V>::copy(const Vector& other)
+void Vector<V>::copy(const Vector& other)         //sushtoto
 {
-    vector = new int[other.capacity];
+    vector = new V [other.capacity];
     size = other.size;
     capacity = other.capacity;
 
@@ -128,6 +137,28 @@ void Vector<V>::popBack()
 }
 
 template<typename V>
+void Vector<V>::removeElement(String _date, String start_time, String end_time)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (vector[i].date == _date && vector[i].startTime == start_time && vector[i].endTime == end_time)
+        {
+            vector[i] = vector[i + 1];
+        }
+    }
+    size--;
+}
+
+template<typename V>
+void Vector<V>::sort()
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (meetings[i].convertDateToInt(meetings[i].getDate())> meetings[i+1].getDate())
+    }
+}
+
+template<typename V>
 inline void Vector<V>::increseSize()
 {
     size++;
@@ -135,6 +166,19 @@ inline void Vector<V>::increseSize()
     {
         resize();
     }
+}
+
+template<typename V>
+bool Vector<V>::duplicateElements(V& other)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (date != other.date || name != other_name || note != other.note || startTime != other.startTime || endTime != other.endTime)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 template<typename V>
@@ -150,26 +194,17 @@ Vector<V>& Vector<V>::operator=(const Vector& other_vector)
 }
 
 template<typename V>
-Vector<V>& Vector<V>::operator[](int i)
+V& Vector<V>::operator[](int i)
 {
     return vector[i];
 }
 
-template <typename V>
-std::ostream& operator<<(std::ostream& out, Vector<V> vect)
-{
-    for (size_t i = 0; i < vect.size; i++)
-    {
-        out << vect.vector[i] << " ";
-    }
-    return out;
-}
-
+/*
 template<typename V>
 void Vector<V>::print() const
 {
     for (size_t i = 0; i < size; i++)
     {
         std::cout << vector[i] << std::endl;
-    }
-}
+    }*=
+}*/

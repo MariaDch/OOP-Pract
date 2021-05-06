@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Date.h"
+#include "Meeting.h"
 
 int main()
 {
-
+	Meeting m1;
 }

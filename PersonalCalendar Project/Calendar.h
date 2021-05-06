@@ -27,7 +27,7 @@ public:
 	String getEndTime()const;
 
 	void book(Meeting meeting);
-	void unbook(Meeting meeting);
+	void unbook(String _date, String start_time, String end_time);
 	void agenda(String _date);
 	void change(Meeting meet, String option, String newValue);
 	void find(String findString);
