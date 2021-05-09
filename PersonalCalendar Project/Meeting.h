@@ -18,6 +18,7 @@ public:
 	void setNote(String other_note);
 	void setStartTime(String other_starttime);
 	void setEndTime(String other_endTime);
+	void setDate(String other_date);
 
 	String getDate()const;
 	String getName()const;
@@ -27,8 +28,13 @@ public:
 
 	Meeting& operator=(Meeting& other_meeting);
 	bool operator==(Meeting& other_meeting);
+	friend std::ostream& operator<<(std::ostream& out, Meeting meet)
+	{
+		out << meet.date << meet.startTime << meet.endTime << meet.name << meet.note; //ei tuka bugqsva :@
+		return out;
+	}
 
-	int dateDay();
+	/*int dateDay();
 	int dateMonth();
 	int dateYear();
 	int TimeHours(String time);
@@ -37,8 +43,10 @@ public:
 	int convertDateToInt();
 	bool validateDate();
 	bool validateTime(String time);
-	bool compareMeetings(Meeting meet);
+	*/
+	//bool compareMeetings(Meeting meet);
 
+	int busyHour();
 	void print()const;
 
 	/*friend std::ostream& operator<<(std::ostream& out,const Meeting& meet)

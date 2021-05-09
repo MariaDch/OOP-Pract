@@ -24,6 +24,7 @@ public:
 
         Vector& operator= (const Vector& other);
         V& operator[](int i);
+
         friend std::ostream& operator<<(std::ostream& out, Vector<V> _vector)
         {
             for (size_t i = 0; i < _vector.size; i++)
@@ -38,13 +39,16 @@ public:
         void removeElement(String _date, String start_time, String end_time);
         void sort();
         void increseSize();
-        bool duplicateElements(V& other);
+        bool overlapedMeetings(V& other);
+        V& findElement(V element);
 
-      //  void print() const;
+        int BusyHours();
+
+        void print() const;
 };
 
 template<typename V>
-Vector<V>::Vector()        //sushtoto
+Vector<V>::Vector()        //da
 {
     size = 0;
     capacity = 10;
@@ -52,18 +56,18 @@ Vector<V>::Vector()        //sushtoto
 }
 
 template<typename V>
-Vector<V>::Vector(const Vector& other_vector)        //sushtoto
+Vector<V>::Vector(const Vector& other_vector)        //da
 {
     copy(other_vector);
 }
 template<typename V>
-void Vector<V>::erase()        //sushtoto
+void Vector<V>::erase()        //da
 {
     delete[] vector;
 }
 
 template<typename V>
-Vector<V>::~Vector()        //sushtoto
+Vector<V>::~Vector()        //da
 {
     erase();
 }
@@ -75,7 +79,7 @@ V* Vector<V>::getVecotor()
 }
 
 template<typename V>
-size_t Vector<V>::getSize()             //sushtoto
+size_t Vector<V>::getSize()             //da
 {
     return size;
 }
@@ -87,7 +91,7 @@ size_t Vector<V>::getCapacity()
 }
 
 template<typename V>
-void Vector<V>::resize()         //sushtoto
+void Vector<V>::resize()         //da
 {
     capacity = size;
     capacity *= 2;
@@ -103,7 +107,7 @@ void Vector<V>::resize()         //sushtoto
 }
 
 template<typename V>
-void Vector<V>::copy(const Vector& other)         //sushtoto
+void Vector<V>::copy(const Vector& other)         //da
 {
     vector = new V [other.capacity];
     size = other.size;
@@ -141,7 +145,7 @@ void Vector<V>::removeElement(String _date, String start_time, String end_time)
 {
     for (size_t i = 0; i < size; i++)
     {
-        if (vector[i].date == _date && vector[i].startTime == start_time && vector[i].endTime == end_time)
+        if (vector[i].getDate() == _date && vector[i].getStartTime() == start_time && vector[i].getEndTime() == end_time)
         {
             vector[i] = vector[i + 1];
         }
@@ -152,9 +156,26 @@ void Vector<V>::removeElement(String _date, String start_time, String end_time)
 template<typename V>
 void Vector<V>::sort()
 {
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++) 
     {
-        if (meetings[i].convertDateToInt(meetings[i].getDate())> meetings[i+1].getDate())
+        String start_time = vector[i].getStartTime();
+        String secondStart_time = vector[i].getStartTime();
+        //  String secondDate = vector[i + 1].getDate();
+        if (vector[i].getDate().convertDateToInt() > vector[i + 1].getDate().convertDateToInt())
+        {
+            V vect = vector[i];
+            vector[i] = vector[i + 1];
+            vector[i + 1] = vect;
+        }
+        if (vector[i].getDate().convertDateToInt() == vector[i + 1].getDate().convertDateToInt())
+        {
+            if (vector[i].getStartTime().convertTimeToInt() > vector[i + 1].getStartTime().convertTimeToInt())
+            {
+                V vect = vector[i];
+                vector[i] = vector[i + 1];
+                vector[i + 1] = vect;
+            }
+        }
     }
 }
 
@@ -169,16 +190,63 @@ inline void Vector<V>::increseSize()
 }
 
 template<typename V>
-bool Vector<V>::duplicateElements(V& other)
+bool Vector<V>::overlapedMeetings(V& other)
 {
     for (size_t i = 0; i < size; i++)
     {
-        if (date != other.date || name != other_name || note != other.note || startTime != other.startTime || endTime != other.endTime)
+        int vectorIconvertedStartTime = vector[i].getStartTime().convertTimeToInt();
+        int vectorIconvertedEndTime = vector[i].getEndTime().convertTimeToInt();
+        
+        int otherConvertedStartTime = other.getStartTime().convertTimeToInt();
+        int otherConvertedEndTime = other.getEndTime().convertTimeToInt();
+
+        if (vector[i].getDate().validateDate() && vector[i].getStartTime().validateTime(vector[i].getStartTime()) && vector[i].getEndTime().validateTime(vector[i].getEndTime()))
         {
-            return false;
+            if (vector[i].getDate() == other.getDate() && vectorIconvertedStartTime >= otherConvertedStartTime && vectorIconvertedEndTime <= otherConvertedEndTime)
+            {
+                return true;
+            }
+
+            if (vector[i].getDate() == other.getDate() && vectorIconvertedStartTime >= otherConvertedStartTime && vectorIconvertedEndTime >= otherConvertedEndTime)
+            {
+                return true;
+            }
         }
     }
-    return true;
+    return false;
+}
+
+template<typename V>
+inline V& Vector<V>::findElement(V element)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (vector[i] == element)
+        {
+            return vector[i];
+        }
+    }
+}
+
+
+template<typename V>
+int Vector<V>::BusyHours()
+{
+    sort();
+    int hours = 0;
+    int helperOne = 0;
+    int helperTwo = 0;
+
+    for (size_t i = 0; i < size; i++)
+    {
+        for (size_t j = i; vector[j].getDate() == vector[j + 1].getDate(); j++)
+        {
+                helperTwo = vector[j].getStartTime().convertTimeToInt() / 100; // 1300 -> 13
+                helperOne = vector[j].getEndTime().converTimeToInt() / 100;  // 1500 -> 15
+                hours += helperOne-helperTwo;
+        }
+    }
+    return hours;
 }
 
 template<typename V>
@@ -199,12 +267,12 @@ V& Vector<V>::operator[](int i)
     return vector[i];
 }
 
-/*
+
 template<typename V>
 void Vector<V>::print() const
 {
     for (size_t i = 0; i < size; i++)
     {
         std::cout << vector[i] << std::endl;
-    }*=
-}*/
+    }
+}

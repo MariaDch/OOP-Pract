@@ -12,6 +12,7 @@ Meeting::Meeting()
 
 Meeting::Meeting(const Meeting& other_meeting)
 {
+	date = other_meeting.date;
 	name = other_meeting.name;
 	note = other_meeting.note;
 	startTime = other_meeting.startTime;
@@ -36,6 +37,11 @@ void Meeting::setStartTime(String other_startTime)
 void Meeting::setEndTime(String other_endTime)
 {
 	endTime = other_endTime;
+}
+
+void Meeting::setDate(String other_date)
+{
+	date = other_date;
 }
 
 String Meeting::getDate() const
@@ -84,7 +90,7 @@ bool Meeting::operator==(Meeting& other_meeting)
 	}
 	else false;
 }
-
+/*
 int Meeting::dateDay()
 {
 	int Day = convertDateToInt() % 100; //99.12.31;
@@ -227,8 +233,20 @@ bool Meeting::validateTime(String time)
 		else return false;
 	}
 	else return false;
-}
+}*/
 
+int Meeting::busyHour()
+{
+	int hours = 0;
+	int helperOne = 0;
+	int helperTwo = 0;
+
+	helperTwo = startTime.convertTimeToInt() / 100; // 1300 -> 13
+	helperOne = endTime.convertTimeToInt() / 100;  // 1500 -> 15
+	hours += helperOne - helperTwo;
+
+	return hours;
+}
 
 void Meeting::print()const
 {

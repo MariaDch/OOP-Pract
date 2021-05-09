@@ -1,7 +1,7 @@
 #pragma once
 #include "Meeting.h"
-#include "String.h"
 #include "Vector.h"
+#include "String.h"
 
 class Calendar
 {
@@ -34,8 +34,10 @@ public:
 	void holiday(String _date);
 	void busyDays(String from, String to);
 	void findSlot(String date, int hours);
-	void findSlotWith(String _date, int hours, Vector<Calendar> calendars);
-	void merge(Vector<Calendar> calendars);
-
+	void findSlotWith(String fromDate, int hours, Calendar other_calendar);
+	void findSlotWith(String _date, int hours, Vector<Calendar> calendars);		//za bonus uslovieto !
+	void merge(Calendar other_calendar);
+	void merge(Vector<Calendar> calendars);										//za bonus uslovieto !
+	
 };
 
