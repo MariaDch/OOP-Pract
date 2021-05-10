@@ -22,7 +22,8 @@ public:
         size_t getSize();
         size_t getCapacity();
 
-        Vector& operator= (const Vector& other);
+        Vector& operator= (const Vector& other_vector);
+
         V& operator[](int i);
 
         friend std::ostream& operator<<(std::ostream& out, Vector<V> _vector)
@@ -51,7 +52,7 @@ template<typename V>
 Vector<V>::Vector()        //da
 {
     size = 0;
-    capacity = 10;
+    capacity = 5;
     vector = new V [capacity];
 }
 
@@ -127,8 +128,7 @@ void Vector<V>::pushBack(V newElement)
         resize();
     }
 
-    vector[size] = newElement;
-    size++;
+    vector[size++] = newElement;
 }
 
 template<typename V>
@@ -159,17 +159,17 @@ void Vector<V>::sort()
     for (size_t i = 0; i < size; i++) 
     {
         String start_time = vector[i].getStartTime();
-        String secondStart_time = vector[i].getStartTime();
+        String secondStart_time = vector[i+1].getStartTime();
         //  String secondDate = vector[i + 1].getDate();
-        if (vector[i].getDate().convertDateToInt() > vector[i + 1].getDate().convertDateToInt())
+        if (vector[i].getDate().convertStringToInt() > vector[i + 1].getDate().convertStringToInt())
         {
             V vect = vector[i];
             vector[i] = vector[i + 1];
             vector[i + 1] = vect;
         }
-        if (vector[i].getDate().convertDateToInt() == vector[i + 1].getDate().convertDateToInt())
+        if (vector[i].getDate().convertStringToInt() == vector[i + 1].getDate().convertStringToInt())
         {
-            if (vector[i].getStartTime().convertTimeToInt() > vector[i + 1].getStartTime().convertTimeToInt())
+            if (vector[i].getStartTime().convertStringToInt() > vector[i + 1].getStartTime().convertStringToInt())
             {
                 V vect = vector[i];
                 vector[i] = vector[i + 1];
@@ -194,11 +194,11 @@ bool Vector<V>::overlapedMeetings(V& other)
 {
     for (size_t i = 0; i < size; i++)
     {
-        int vectorIconvertedStartTime = vector[i].getStartTime().convertTimeToInt();
-        int vectorIconvertedEndTime = vector[i].getEndTime().convertTimeToInt();
+        int vectorIconvertedStartTime = vector[i].getStartTime().convertStringToInt();
+        int vectorIconvertedEndTime = vector[i].getEndTime().convertStringToInt();
         
-        int otherConvertedStartTime = other.getStartTime().convertTimeToInt();
-        int otherConvertedEndTime = other.getEndTime().convertTimeToInt();
+        int otherConvertedStartTime = other.getStartTime().convertStringToInt();
+        int otherConvertedEndTime = other.getEndTime().convertStringToInt();
 
         if (vector[i].getDate().validateDate() && vector[i].getStartTime().validateTime(vector[i].getStartTime()) && vector[i].getEndTime().validateTime(vector[i].getEndTime()))
         {

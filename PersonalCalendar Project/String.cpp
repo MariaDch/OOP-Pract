@@ -1,6 +1,7 @@
 #include "String.h"
 #include <iostream>
 #include <cstring>
+#include <stdlib.h>
 
 void String::copy(const String& other_string)
 {
@@ -70,7 +71,7 @@ String::~String()            //da
 
 String::String(const String& other_string)              //da
 {
-	erase();
+	//erase();
 	copy(other_string);
 }
 
@@ -204,14 +205,14 @@ void String::trimEnd(size_t numberOfElements)
 
 int String::dateDay()
 {
-	int Day = convertDateToInt() % 100; //99.12.31;
+	int Day = convertStringToInt() % 100; //99.12.31;
 
 	return Day;
 }
 
 int String::dateMonth()
 {
-	int Month = convertDateToInt() / 100; //991231 -> 9912;
+	int Month = convertStringToInt() / 100; //991231 -> 9912;
 	Month = Month % 100;
 
 	return Month;
@@ -219,74 +220,83 @@ int String::dateMonth()
 
 int String::dateYear()
 {
-	int Year = convertDateToInt() / 10000; //991237 -> 99
+	int Year = convertStringToInt() / 10000; //991237 -> 99
 
 	return Year;
 }
 
 int String::TimeSeconds(String time)
 {
-	int seconds = time.convertTimeToInt() % 100; //12:57 
+	int seconds = time.convertStringToInt() % 100; //12:57 
 
 	return seconds;
 }
 
 int String::TimeHours(String time)
 {
-	int hours = time.convertTimeToInt() / 100; // 1257 -> 12
+	int hours = time.convertStringToInt() / 100; // 1257 -> 12
 
 	return hours;
 }
 
-int String::convertTimeToInt()
+int String:: convertCharToNum(char symbol) const
 {
-	int intStartTime = 0;
-
-	for (int i = 0; i < size; i++)
+	switch (symbol)
 	{
-		if (array[i] >= '0' && array[i] <= '9' || array[i] == ':')
-		{
-			if (array[i] != ':')
-			{
-				if (i == 0)
-				{
-					intStartTime = array[i];
-				}
-				else
-				{
-					intStartTime *= 10;
-					intStartTime += array[i];
-				}
-			}
-		}
+	case('1'):
+		return 1;
+		break;
+	case('2'):
+		return 2;
+		break;
+	case('3'):
+		return 3;
+		break;
+	case('4'):
+		return 4;
+		break;
+	case('5'):
+		return 5;
+		break;
+	case('6'):
+		return 6;
+		break;
+	case('7'):
+		return 7;
+		break;
+	case('8'):
+		return 8;
+		break;
+	case('9'):
+		return 9;
+		break;
+	case('0'):
+		return 0;
+		break;
 	}
-	return intStartTime;
 }
 
-int String::convertDateToInt()
+int String::convertStringToInt() const
 {
-	int intDate = 0;
-	for (int i = 0; i < size; i++)
+	int stringToInt = 0;
+
+	for (size_t i = 0; i < size; i++)
 	{
-		if (array[i] >= '0' && array[i] <= '9' || array[i] == '.')
+		if (array[i] >= '0' && array[i] <= '9')
 		{
-			if (array[i] != '.')
+			/*if (convertCharToNum(array[i]) == 0 || i==0)
 			{
-				if (i == 0)
-				{
-					intDate = array[i];
-				}
-				else
-				{
-					intDate *= 10;
-					intDate += array[i];
-				}
+				stringToInt +=convertCharToNum(array[i]);
 			}
+			else 
+			{*/
+				stringToInt *= 10;
+				stringToInt += convertCharToNum(array[i]);
+			//}
 		}
-		else
-			std::cout << "Invalid input for date.";
 	}
-	return intDate;
+
+	return stringToInt;
 }
 
 bool String::validateDate()

@@ -45,8 +45,8 @@ public:
 	int dateYear();
 	int TimeHours(String time);
 	int TimeSeconds(String time);
-	int convertTimeToInt();
-	int convertDateToInt();
+	int convertCharToNum(char symbol)const;
+	int convertStringToInt() const;
 	bool validateDate();
 	bool validateTime(String time);
 

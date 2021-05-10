@@ -16,12 +16,23 @@ Calendar::Calendar()
 	endTime = "00:00";
 }
 
+/*Calendar::Calendar(Vector<Meeting> other_meetings)
+{
+	meetings = other_meetings;
+}
+*/
+
 Calendar::Calendar(Calendar& other_calendar)
 {
 	copy(other_calendar);
 }
 
-void Calendar::setMeetings(Vector<Meeting>& other_meetings)
+/*void Calendar::setMeetings(Vector<Meeting>& other_meetings)
+{
+	meetings = other_meetings;
+}*/
+
+void Calendar::setMeetings(Vector<Meeting>other_meetings)
 {
 	meetings = other_meetings;
 }
@@ -66,17 +77,19 @@ void Calendar::book(Meeting meeting)									//TRQBVA  DA E VQrNO
 	if (meetings.overlapedMeetings(meeting) == false)
 	{
 		meetings.pushBack(meeting);
+		std::cout << "Your meetings is booked";
 	}
 }
 
 void Calendar::unbook(String _date, String start_time, String end_time) //trqbva da e vqrno
 {
-	meetings.removeElement(_date, start_time, end_time);	    
+	meetings.removeElement(_date, start_time, end_time);	   
+	std::cout << "Your meeting is unbooked";
 }
 
 void Calendar::agenda(String _date)						    	        //trqbva da e vqrno
 {
-	meetings.sort();
+	//meetings.sort();
 
 	for (int i = 0; i < meetings.getSize(); i++)
 	{
@@ -204,7 +217,7 @@ void Calendar::holiday(String _date)
 		holiday.setNote(notee);
 		holiday.setName(namee);*/
 
-		if (meetings.overlapedMeetings(holiday))
+		if (meetings.overlapedMeetings(holiday)==false)
 		{
 			book(holiday);
 		}
@@ -226,7 +239,7 @@ void Calendar::busyDays(String from, String to)
 
 	for (size_t i = 0; i < meetings.getSize(); i++)
 	{
-		if (meetings[i].getDate().convertDateToInt() >= from.convertDateToInt() && meetings[i].getDate().convertDateToInt() <= to.convertDateToInt())
+		if (meetings[i].getDate().convertStringToInt() >= from.convertStringToInt() && meetings[i].getDate().convertStringToInt() <= to.convertStringToInt())
 		{
 			if (i == 0 || i % 2 == 0)
 			{
@@ -266,9 +279,9 @@ void Calendar::findSlot(String fromDate, int hours)
 
 	for (size_t i = 0; i < meetings.getSize(); i++) 
 	{
-		if (meetings[i].getNote() != "Holiday" && meetings[i].getDate().convertDateToInt()>=fromDate.convertDateToInt())
+		if (meetings[i].getNote() != "Holiday" && meetings[i].getDate().convertStringToInt()>=fromDate.convertStringToInt())
 		{
-			if (meetings[i + 1].getStartTime().convertTimeToInt() - meetings[i].getEndTime().convertTimeToInt() >= hours)
+			if (meetings[i + 1].getStartTime().convertStringToInt() - meetings[i].getEndTime().convertStringToInt() >= hours)
 			{
 				/*newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime(meetings[i].getEndTime());
@@ -282,7 +295,7 @@ void Calendar::findSlot(String fromDate, int hours)
 				std::cout << meetings[i + 1].getStartTime() << std::endl;
 				break;
 			}
-			if (meetings[i].getEndTime().convertTimeToInt() < 1700 && meetings[i].getEndTime().convertTimeToInt() + hours <= 1700)
+			if (meetings[i].getEndTime().convertStringToInt() < 1700 && meetings[i].getEndTime().convertStringToInt() + hours <= 1700)
 			{
 				/*newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime(meetings[i].getEndTime());
@@ -295,7 +308,7 @@ void Calendar::findSlot(String fromDate, int hours)
 				std::cout << "To: 17:00 " << std::endl;
 				break;
 			}
-			if (meetings[i].getStartTime().convertTimeToInt() > 800 && meetings[i].getStartTime().convertTimeToInt() - hours >= 800)
+			if (meetings[i].getStartTime().convertStringToInt() > 800 && meetings[i].getStartTime().convertStringToInt() - hours >= 800)
 			{
 				/*newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime("08:00");
@@ -320,23 +333,23 @@ void Calendar::findSlotWith(String fromDate, int hours, Calendar calendar)
 
 	for (size_t i = 0; i < meetings.getSize(); i++)
 	{
-		if (meetings[i].getNote() != "Holiday" && meetings[i].getDate().convertDateToInt() >= fromDate.convertDateToInt())
+		if (meetings[i].getNote() != "Holiday" && meetings[i].getDate().convertStringToInt() >= fromDate.convertStringToInt())
 		{
-			if (meetings[i + 1].getStartTime().convertTimeToInt() - meetings[i].getEndTime().convertTimeToInt() >= hours)
+			if (meetings[i + 1].getStartTime().convertStringToInt() - meetings[i].getEndTime().convertStringToInt() >= hours)
 			{
 				newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime(meetings[i].getEndTime());
 				newMeet.setEndTime(meetings[i + 1].getStartTime());
 				break;
 			}
-			if (meetings[i].getEndTime().convertTimeToInt() < 1700 && meetings[i].getEndTime().convertTimeToInt() + hours <= 1700)
+			if (meetings[i].getEndTime().convertStringToInt() < 1700 && meetings[i].getEndTime().convertStringToInt() + hours <= 1700)
 			{
 				newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime(meetings[i].getEndTime());
 				newMeet.setEndTime("17:00");
 				break;
 			}
-			if (meetings[i].getStartTime().convertTimeToInt() > 800 && meetings[i].getStartTime().convertTimeToInt() - hours >= 800)
+			if (meetings[i].getStartTime().convertStringToInt() > 800 && meetings[i].getStartTime().convertStringToInt() - hours >= 800)
 			{
 				newMeet.setDate(meetings[i].getDate());
 				newMeet.setStartTime("08:00");

@@ -15,8 +15,10 @@ private:
 public:
 	Calendar();
 	Calendar(Calendar& other_calendars);
+	//Calendar(Vector<Meeting> meetings);
 
-	void setMeetings(Vector<Meeting>& other_meetings);
+	void setMeetings(Vector<Meeting> other_meetings);
+	//void setMeetings(Vector<Meeting>& other_meetings);
 	void setDate(String& other_date);
 	void setStartTime(String& other_startTime);
 	void setEndTime(String& other_ednTime);
