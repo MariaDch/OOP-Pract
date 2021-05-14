@@ -40,8 +40,8 @@ public:
         void removeElement(String _date, String start_time, String end_time);
         void sort();
         void increseSize();
-        bool overlapedMeetings(V& other);
         V& findElement(V element);
+        void swap(V& element, V& elemen);
 
         int BusyHours();
 
@@ -127,8 +127,16 @@ void Vector<V>::pushBack(V newElement)
     {
         resize();
     }
-
-    vector[size++] = newElement;
+    for (size_t i = 0; i < size; i++)
+    {
+        if (vector[i].overlapedMeetings(newElement) == true)
+        {
+            std::cout << "Overlaped meetings.";
+            break;
+        }
+    }
+        vector[size] = newElement;
+        size++;
 }
 
 template<typename V>
@@ -153,34 +161,42 @@ void Vector<V>::removeElement(String _date, String start_time, String end_time)
     size--;
 }
 
+template <typename V>
+void Vector<V>::swap(V& element, V& elem)
+{
+    V vect = element;
+    element = elem;
+    elem = vect;
+}
+
 template<typename V>
 void Vector<V>::sort()
 {
     for (size_t i = 0; i < size; i++) 
     {
-        String start_time = vector[i].getStartTime();
-        String secondStart_time = vector[i+1].getStartTime();
-        //  String secondDate = vector[i + 1].getDate();
-        if (vector[i].getDate().convertStringToInt() > vector[i + 1].getDate().convertStringToInt())
-        {
-            V vect = vector[i];
-            vector[i] = vector[i + 1];
-            vector[i + 1] = vect;
-        }
-        if (vector[i].getDate().convertStringToInt() == vector[i + 1].getDate().convertStringToInt())
-        {
-            if (vector[i].getStartTime().convertStringToInt() > vector[i + 1].getStartTime().convertStringToInt())
+        for( size_t j=i+1; j<size; j++)
+        { 
+            int start_time = vector[i].getStartTime().convertStringToInt();
+            int secondStart_time = vector[j].getStartTime().convertStringToInt();
+
+            if (vector[i].getDate().convertStringToInt() > vector[j].getDate().convertStringToInt())
             {
-                V vect = vector[i];
-                vector[i] = vector[i + 1];
-                vector[i + 1] = vect;
+                swap(vector[i], vector[j]);
+            }
+            else  if (vector[i].getDate().convertStringToInt() == vector[j].getDate().convertStringToInt())
+            {
+                if (start_time > secondStart_time)
+                {
+                    swap(vector[i], vector[j]);
+                }
             }
         }
+        
     }
 }
 
 template<typename V>
-inline void Vector<V>::increseSize()
+void Vector<V>::increseSize()
 {
     size++;
     if (size >= capacity)
@@ -190,34 +206,7 @@ inline void Vector<V>::increseSize()
 }
 
 template<typename V>
-bool Vector<V>::overlapedMeetings(V& other)
-{
-    for (size_t i = 0; i < size; i++)
-    {
-        int vectorIconvertedStartTime = vector[i].getStartTime().convertStringToInt();
-        int vectorIconvertedEndTime = vector[i].getEndTime().convertStringToInt();
-        
-        int otherConvertedStartTime = other.getStartTime().convertStringToInt();
-        int otherConvertedEndTime = other.getEndTime().convertStringToInt();
-
-        if (vector[i].getDate().validateDate() && vector[i].getStartTime().validateTime(vector[i].getStartTime()) && vector[i].getEndTime().validateTime(vector[i].getEndTime()))
-        {
-            if (vector[i].getDate() == other.getDate() && vectorIconvertedStartTime >= otherConvertedStartTime && vectorIconvertedEndTime <= otherConvertedEndTime)
-            {
-                return true;
-            }
-
-            if (vector[i].getDate() == other.getDate() && vectorIconvertedStartTime >= otherConvertedStartTime && vectorIconvertedEndTime >= otherConvertedEndTime)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-template<typename V>
-inline V& Vector<V>::findElement(V element)
+V& Vector<V>::findElement(V element)
 {
     for (size_t i = 0; i < size; i++)
     {

@@ -4,21 +4,21 @@
 int main()
 {
 	Meeting m1;
-	m1.setDate("01.02.22");
+	m1.setDate("22.02.03");
 	m1.setStartTime("08:00");
-	m1.setEndTime("10:00");
+	m1.setEndTime("11:00");
 	m1.setName("Maria");
 	m1.setNote("Work");
 
 	Meeting m2;
-	m2.setDate("10.02.22");
-	m2.setStartTime("09:00");
-	m2.setEndTime("10:00");
+	m2.setDate("22.02.01");
+	m2.setStartTime("07:00");
+	m2.setEndTime("12:00");
 	m2.setName("Hristo");
 	m2.setNote("Talk");
 
 	Meeting m3;
-	m3.setDate("02.11.22");
+	m3.setDate("22.11.02");
 	m3.setStartTime("09:00");
 	m3.setEndTime("10:00");
 	m3.setName("Gosho");
@@ -27,19 +27,19 @@ int main()
 	//std::cout <<m3.getDate().convertStringToInt();
 
 	Vector <Meeting> meetingscheta;
-	meetingscheta.pushBack(m1);
+	meetingscheta.pushBack(m3);
 	meetingscheta.pushBack(m2);
-	//meetingscheta.print();
-
+	meetingscheta.pushBack(m1);
+	//std::cout <<m1.overlapedMeetings(m2);
 	Calendar cal;
 	cal.setMeetings(meetingscheta);
+	meetingscheta.sort();
 
-	//cal.findSlot("10.02.22", 2);							//---ne raboti!!!
-	//cal.holiday("02.11.22");							   // ne raboti !!!
-	//cal.busyDays("01.02.22", "10.02.22");				  // ne raboti !!!
+	//meetingscheta.print();
 
-									//VECTOR SORT NE RABOTI!
-								   // PROVERI DALI FUNCIQTA overlapedMeetings RABOTI PRAVILNO
+	//cal.findSlot("22.01.10", 2);							//promeni da smqta do kolko chasa trqbva da e sreshtata!!!
+	//cal.holiday("22.11.10");							   // ne raboti !!! ninam zashto
+	//cal.busyDays("22.02.01", "22.02.10");				  // proveri za greshka !!!!!!
 	
 	
 	//cal.find("Talk");

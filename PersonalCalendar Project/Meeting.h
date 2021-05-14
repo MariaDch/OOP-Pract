@@ -12,7 +12,6 @@ private:
 	String endTime;
 public:
 	Meeting();
-	//Meeting(const Meeting& other_meeting);
 	Meeting(String other_date, String other_startTime, String other_endTime, String other_name, String other_note);
 	
 	void setName(String other_name);
@@ -27,7 +26,7 @@ public:
 	String getStartTime()const;
 	String getEndTime()const;
 
-	//Meeting& operator=(Meeting& other_meeting);
+	
 	bool operator==(Meeting& other_meeting);
 	friend std::ostream& operator<<(std::ostream& out, Meeting meet)
 	{
@@ -37,15 +36,7 @@ public:
 
 	int busyHour();
 	void print()const;
+	bool overlapedMeetings(Meeting& other);
 
-	/*friend std::ostream& operator<<(std::ostream& out,const Meeting& meet)
-	{
-		out << meet.getDate() << std::endl;
-		out << meet.startTime << std::endl;
-		out << meet.endTime << std::endl;
-		out << meet.name << std::endl;
-		return out;
-	}*/
-	
 };
 

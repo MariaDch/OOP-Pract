@@ -19,7 +19,7 @@ void String::erase()
 	delete[] array;
 }
 
-String::String()                                 //da
+String::String()                                 
 {
 	capacity = 10;
 	size = 1;
@@ -27,7 +27,7 @@ String::String()                                 //da
 	array[0] = '\0';
 }
 
-String::String(const char* string)                  //da
+String::String(const char* string)                 
 {
 	array = new char[strlen(string) + 1];
 	strcpy_s(array, strlen(string) + 1, string);
@@ -35,16 +35,16 @@ String::String(const char* string)                  //da
 	size = strlen(string);
 }
 
-String& String::operator=(const String& other_string) //da
+String& String::operator=(const String& other_string) 
 {
 	if (this != &other_string)
 	{
-		erase();
+		//erase();
 		copy(other_string);
 	}
 	return *this;
 }
-
+/*
 String& String::operator=(const char* _char)
 {
 	erase();
@@ -54,22 +54,14 @@ String& String::operator=(const char* _char)
 	strcpy_s(array, strlen(_char) + 1, _char);
 
 	return *this;
-}
-
-/*String& String::operator=(const char* other_array) //?????????????????
-{
-	erase();
-	array = new char[strlen(other_array) + 1];
-	strcpy_s(array, strlen(other_array) + 1, other_array);
-	return *this;
 }*/
 
-String::~String()            //da
+String::~String()            
 {
 	erase();
 }
 
-String::String(const String& other_string)              //da
+String::String(const String& other_string)              
 {
 	//erase();
 	copy(other_string);
@@ -94,22 +86,22 @@ void String::setSize(size_t _size)
 	size = _size;
 }
 
-const char* String::getArray() const        //da
+const char* String::getArray() const        
 {
 	return array;
 }
 
-size_t String::getSize() const        //da
+size_t String::getSize() const        
 {
 	return size;
 }
 
-size_t String::getCapacity() const        //da
+size_t String::getCapacity() const        
 {
 	return capacity;
 }
 
-void String::resize()        //da
+void String::resize()        
 {
 	capacity = size;
 	capacity *= 2;
@@ -124,84 +116,11 @@ void String::resize()        //da
 	array = biggerArray;
 }
 
-/*void String::add(char newSymbol)
-{
-	if (size >= capacity)
-	{
-		resize();
-	}
-
-	array[size] = newSymbol;
-	array[size + 1] = '\0';
-}*/
-
-size_t String::getLength()         //da
+size_t String::getLength()         
 {
 	size = strlen(array);
 	return size;
 }
-
-/*void String::insertAt(size_t index, char symbol)
-{
-	if (size >= capacity)
-	{
-		resize();
-	}
-
-	for (size_t i = size; i >= index; i--)
-	{
-		array[i] = array[i - 1];
-	}
-
-	array[index - 1] = symbol;
-	size++;
-	array[size] = '\0';
-}
-
-void String::removeAt(size_t index)
-{
-	for (size_t i = index - 1; i < size; i++)
-	{
-		array[i] = array[i + 1];
-	}
-	size--;
-	array[size] = '\0';
-}
-
-void String::trimStart()
-{
-	for (size_t i = 0; i < size; i++)
-	{
-		array[i] = array[i + 1];
-	}
-	size--;
-	array[size] = '\0';
-}
-
-void String::trimEnd()
-{
-	size--;
-	array[size] = '\0';
-}
-
-void String::trimStart(size_t numberOfElements)
-{
-	for (size_t j = 0; j < numberOfElements; j++)
-	{
-		for (size_t i = 1; i < size; i++)
-		{
-			array[i - 1] = array[i];
-		}
-		size--;
-		array[size] = '\0';
-	}
-}
-
-void String::trimEnd(size_t numberOfElements)
-{
-	size -= numberOfElements;
-	array[size] = '\0';
-}*/
 
 int String::dateDay()
 {
@@ -284,15 +203,8 @@ int String::convertStringToInt() const
 	{
 		if (array[i] >= '0' && array[i] <= '9')
 		{
-			/*if (convertCharToNum(array[i]) == 0 || i==0)
-			{
-				stringToInt +=convertCharToNum(array[i]);
-			}
-			else 
-			{*/
 				stringToInt *= 10;
 				stringToInt += convertCharToNum(array[i]);
-			//}
 		}
 	}
 
@@ -303,22 +215,6 @@ bool String::validateDate()
 {
 	if (dateYear() > 0)
 	{
-		if (dateMonth() == 1 || dateMonth() == 3 || dateMonth() == 5 || dateMonth() == 7 || dateMonth() == 8 || dateMonth() == 10 || dateMonth() == 12)
-		{
-			if (dateDay() <= 31 && dateDay() >= 1)
-			{
-				return true;
-			}
-			else return false;
-		}
-		if (dateMonth() == 4 || dateMonth() == 6 || dateMonth() == 9 || dateMonth() == 11)
-		{
-			if (dateDay() <= 30 && dateDay() >= 1)
-			{
-				return true;
-			}
-			else return false;
-		}
 		if (dateMonth() == 02)
 		{
 			if (dateYear() % 4 == 0 && dateYear() % 100 != 0)
@@ -337,6 +233,22 @@ bool String::validateDate()
 				}
 				else return false;
 			}
+		}
+		else if (dateMonth() == 1 || dateMonth() == 3 || dateMonth() == 5 || dateMonth() == 7 || dateMonth() == 8 || dateMonth() == 10 || dateMonth() == 12)
+		{
+			if (dateDay() <= 31 && dateDay() >= 1)
+			{
+				return true;
+			}
+			else return false;
+		}
+		else if (dateMonth() == 4 || dateMonth() == 6 || dateMonth() == 9 || dateMonth() == 11)
+		{
+			if (dateDay() <= 30 && dateDay() >= 1)
+			{
+				return true;
+			}
+			else return false;
 		}
 		else return false;
 	}
@@ -446,17 +358,17 @@ bool String:: operator!=(const String& other_string)
 {
 	if (size != other_string.size)
 	{
-		return false;
+		return true;
 	}
 	else
 		for (size_t i = 0; i < size; i++)
 		{
 			if (array[i] != other_string.array[i])
 			{
-				return false;
+				return true;
 			}
 		}
-	return true;
+	return false;
 }
 
 char String::operator[](size_t index)
@@ -465,7 +377,7 @@ char String::operator[](size_t index)
 	{
 		return 0;
 	}
-	return array[index - 1];
+	return array[index];
 }
 
 

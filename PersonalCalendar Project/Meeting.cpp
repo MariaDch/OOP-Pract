@@ -10,15 +10,6 @@ Meeting::Meeting()
 	endTime = "00:00";
 }
 
-/*Meeting::Meeting(const Meeting& other_meeting)
-{
-	date = other_meeting.date;
-	name = other_meeting.name;
-	note = other_meeting.note;
-	startTime = other_meeting.startTime;
-	endTime = other_meeting.endTime;
-}*/
-
 Meeting::Meeting(String other_date, String other_startTime, String other_endTime, String other_name, String other_note)
 {
 	other_date.validateDate();
@@ -85,19 +76,6 @@ String Meeting::getStartTime()const
 	return startTime;
 }
 
-/*Meeting& Meeting::operator=(Meeting& other_meeting)
-{
-	if (this != &other_meeting)
-	{	
-		date = other_meeting.date;
-		name = other_meeting.name;
-		note = other_meeting.note;
-		startTime = other_meeting.startTime;
-		endTime = other_meeting.endTime;
-	}
-	return *this;
-}
-*/
 bool Meeting::operator==(Meeting& other_meeting)
 {
 	if (date == other_meeting.date && startTime == other_meeting.startTime && endTime == other_meeting.endTime)
@@ -131,3 +109,53 @@ void Meeting::print()const
 	std::cout << endTime.getArray();
 }
 
+bool Meeting::overlapedMeetings(Meeting& other)
+{
+		int vectorconvertedStartTime = startTime.convertStringToInt();
+		int vectorconvertedEndTime = endTime.convertStringToInt();
+
+		int otherConvertedStartTime = other.startTime.convertStringToInt();
+		int otherConvertedEndTime = other.endTime.convertStringToInt();
+
+		if (date.validateDate() && startTime.validateTime(startTime) && endTime.validateTime(endTime))
+		{
+			if (date == other.date && vectorconvertedEndTime == otherConvertedStartTime)
+			{
+				return false;
+			}
+			else if (date == other.date && vectorconvertedStartTime < otherConvertedStartTime && vectorconvertedEndTime == otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime > otherConvertedStartTime && vectorconvertedEndTime == otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime < otherConvertedStartTime && vectorconvertedEndTime < otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime > otherConvertedStartTime && vectorconvertedEndTime > otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime == otherConvertedStartTime && vectorconvertedEndTime > otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime == otherConvertedStartTime && vectorconvertedEndTime > otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime == otherConvertedStartTime && vectorconvertedEndTime == otherConvertedEndTime)
+			{
+				return true;
+			}
+			else if (date == other.date && vectorconvertedStartTime > otherConvertedStartTime && vectorconvertedEndTime < otherConvertedEndTime)
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+}

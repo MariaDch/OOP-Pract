@@ -15,10 +15,8 @@ private:
 public:
 	Calendar();
 	Calendar(Calendar& other_calendars);
-	//Calendar(Vector<Meeting> meetings);
 
 	void setMeetings(Vector<Meeting> other_meetings);
-	//void setMeetings(Vector<Meeting>& other_meetings);
 	void setDate(String& other_date);
 	void setStartTime(String& other_startTime);
 	void setEndTime(String& other_ednTime);
@@ -37,9 +35,9 @@ public:
 	void busyDays(String from, String to);
 	void findSlot(String date, int hours);
 	void findSlotWith(String fromDate, int hours, Calendar other_calendar);
-	void findSlotWith(String _date, int hours, Vector<Calendar> calendars);		//za bonus uslovieto !
+	void findSlotWith(String _date, int hours, Vector<Calendar> calendars);		//za bonus uslovieto
 	void merge(Calendar other_calendar);
-	void merge(Vector<Calendar> calendars);										//za bonus uslovieto !
+	void merge(Vector<Calendar> calendars);										//za bonus uslovieto
 	
 };
 
