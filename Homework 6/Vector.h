@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "Meeting.h"
 
 template <typename V>
 class Vector
@@ -10,7 +9,7 @@ private:
     size_t size;
     size_t capacity;
 
-    void copy(const Vector& other);
+    virtual void copy(const Vector& other);
     void resize();
     void erase();
 public:
@@ -18,13 +17,13 @@ public:
         Vector(const Vector& other);
         ~Vector();
 
-        V* getVecotor();
-        size_t getSize();
-        size_t getCapacity();
+       // V* getVecotor();
+        size_t getSize() const;
+        //size_t getCapacity();
 
         Vector& operator= (const Vector& other_vector);
 
-        V& operator[](int i);
+        V& operator[](size_t i);
 
         friend std::ostream& operator<<(std::ostream& out, Vector<V> _vector)
         {
@@ -37,19 +36,13 @@ public:
 
         void pushBack(V newElement);
         void popBack();
-        void removeElement(String _date, String start_time, String end_time);
-        void sort();
-        void increseSize();
+        void removeElement(size_t index);
         V& findElement(V element);
-        void swap(V& element, V& elemen);
-
-        int BusyHours();
-
         void print() const;
 };
 
 template<typename V>
-Vector<V>::Vector()        //da
+Vector<V>::Vector()        //
 {
     size = 0;
     capacity = 5;
@@ -57,42 +50,43 @@ Vector<V>::Vector()        //da
 }
 
 template<typename V>
-Vector<V>::Vector(const Vector& other_vector)        //da
+Vector<V>::Vector(const Vector& other_vector)        //
 {
     copy(other_vector);
 }
 template<typename V>
-void Vector<V>::erase()        //da
+void Vector<V>::erase()        //
 {
     delete[] vector;
 }
 
 template<typename V>
-Vector<V>::~Vector()        //da
+Vector<V>::~Vector()        //
 {
     erase();
 }
 
-template<typename V>
+/*template<typename V>
 V* Vector<V>::getVecotor()  
 {
     return vector;
-}
+}*/
 
 template<typename V>
-size_t Vector<V>::getSize()             //da
+size_t Vector<V>::getSize() const         //
 {
     return size;
 }
 
+/*
 template<typename V>
 size_t Vector<V>::getCapacity()
 {
     return capacity;
-}
+}*/
 
 template<typename V>
-void Vector<V>::resize()         //da
+void Vector<V>::resize()         //
 {
     capacity = size;
     capacity *= 2;
@@ -108,7 +102,7 @@ void Vector<V>::resize()         //da
 }
 
 template<typename V>
-void Vector<V>::copy(const Vector& other)         //da
+void Vector<V>::copy(const Vector& other)         //
 {
     vector = new V [other.capacity];
     size = other.size;
@@ -149,26 +143,23 @@ void Vector<V>::popBack()
 }
 
 template<typename V>
-void Vector<V>::removeElement(String _date, String start_time, String end_time)
+void Vector<V>::removeElement(size_t index)
 {
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = index; i < size; i++)
     {
-        if (vector[i].getDate() == _date && vector[i].getStartTime() == start_time && vector[i].getEndTime() == end_time)
-        {
-            vector[i] = vector[i + 1];
-        }
+        vector[i] = vector[i + 1];
     }
     size--;
 }
-
+/*
 template <typename V>
 void Vector<V>::swap(V& element, V& elem)
 {
     V vect = element;
     element = elem;
     elem = vect;
-}
-
+}*/
+/*
 template<typename V>
 void Vector<V>::sort()
 {
@@ -176,14 +167,14 @@ void Vector<V>::sort()
     {
         for( size_t j=i+1; j<size; j++)
         { 
-            int start_time = vector[i].getStartTime().convertStringToInt();
-            int secondStart_time = vector[j].getStartTime().convertStringToInt();
+            int start_time = vector[i].getStartTime.getDateOrTime().convertStringToInt();
+            int secondStart_time = vector[j].getStartTime().getDateOrTime().convertStringToInt();
 
-            if (vector[i].getDate().convertStringToInt() > vector[j].getDate().convertStringToInt())
+            if (vector[i].getDate().getDateOrTime().convertStringToInt() > vector[j].getDate().getDateOrTime().convertStringToInt())
             {
                 swap(vector[i], vector[j]);
             }
-            else  if (vector[i].getDate().convertStringToInt() == vector[j].getDate().convertStringToInt())
+            else  if (vector[i].getDate().getDateOrTime().convertStringToInt() == vector[j].getDate().getDateOrTime().convertStringToInt())
             {
                 if (start_time > secondStart_time)
                 {
@@ -193,17 +184,7 @@ void Vector<V>::sort()
         }
         
     }
-}
-
-template<typename V>
-void Vector<V>::increseSize()
-{
-    size++;
-    if (size >= capacity)
-    {
-        resize();
-    }
-}
+}*/
 
 template<typename V>
 V& Vector<V>::findElement(V element)
@@ -215,27 +196,6 @@ V& Vector<V>::findElement(V element)
             return vector[i];
         }
     }
-}
-
-
-template<typename V>
-int Vector<V>::BusyHours()
-{
-    sort();
-    int hours = 0;
-    int helperOne = 0;
-    int helperTwo = 0;
-
-    for (size_t i = 0; i < size; i++)
-    {
-        for (size_t j = i; vector[j].getDate() == vector[j + 1].getDate(); j++)
-        {
-                helperTwo = vector[j].getStartTime().convertTimeToInt() / 100; // 1300 -> 13
-                helperOne = vector[j].getEndTime().converTimeToInt() / 100;  // 1500 -> 15
-                hours += helperOne-helperTwo;
-        }
-    }
-    return hours;
 }
 
 template<typename V>
@@ -251,7 +211,7 @@ Vector<V>& Vector<V>::operator=(const Vector& other_vector)
 }
 
 template<typename V>
-V& Vector<V>::operator[](int i)
+V& Vector<V>::operator[](size_t  i)
 {
     return vector[i];
 }
